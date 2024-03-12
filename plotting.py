@@ -5,9 +5,9 @@ from bokeh.models import Band, ColumnDataSource
 
 def plot_ideal_functions(ideal_functions, file_name):
     """
-    Plots all ideal functions
+    Generates plots for all ideal functions.
     :param ideal_functions: list of ideal functions
-    :param file_name: the name the .html file should get
+    :param file_name: the desired name for the .html file
     """
     ideal_functions.sort(key=lambda ideal_function: ideal_function.training_function.name, reverse=False)
     plots = []
@@ -16,15 +16,15 @@ def plot_ideal_functions(ideal_functions, file_name):
                                           squared_error=ideal_function.error)
         plots.append(p)
     output_file("{}.html".format(file_name))
-    # Observe here how unpacking is used to provide the arguments
+    # Unpacking is used here to provide the arguments
     show(column(*plots))
 
 
 def plot_points_with_their_ideal_function(points_with_classification, file_name):
     """
-    Plot all points that have a matched classification
-    :param points_with_classification: a list containing dicts with "classification" and "point"
-    :param file_name: the name the .html file should get
+    Plots all points with their matched classification.
+    :param points_with_classification: a list containing dictionaries with "classification" and "point"
+    :param file_name: the desired name for the .html file
     """
     plots = []
     for index, item in enumerate(points_with_classification):
@@ -37,10 +37,10 @@ def plot_points_with_their_ideal_function(points_with_classification, file_name)
 
 def plot_graph_from_two_functions(scatter_function, line_function, squared_error):
     """
-    plots a scatter for the train_function and a line for the ideal_function
-    :param scatter_function: the train function
-    :param line_function: ideal function
-    :param squared_error: the squared error will be plotted in the title
+    Plots a scatter plot for the training function and a line plot for the ideal function.
+    :param scatter_function: the training function
+    :param line_function: the ideal function
+    :param squared_error: the squared error to be plotted in the title
     """
     f1_dataframe = scatter_function.dataframe
     f1_name = scatter_function.name
@@ -58,8 +58,8 @@ def plot_graph_from_two_functions(scatter_function, line_function, squared_error
 
 def plot_classification(point, ideal_function):
     """
-    plots the classification function and a point on top. It also displays the tolerance
-    :param point: a dict with "x" and "y"
+    Plots the classification function and a point on top, also displaying the tolerance.
+    :param point: a dictionary with "x" and "y" coordinates
     :param ideal_function: a classification object
     """
     if ideal_function is not None:
@@ -70,11 +70,11 @@ def plot_classification(point, ideal_function):
 
         p = figure(title=title, x_axis_label='x', y_axis_label='y')
 
-        # draw the ideal function
+        # Draws the ideal function
         p.line(classification_function_dataframe["x"], classification_function_dataframe["y"],
                 legend_label="Classification function", line_width=2, line_color='black')
 
-        # procedure to show the tolerance within the graph
+        # Procedure to show the tolerance within the graph
         criterion = ideal_function.tolerance
         classification_function_dataframe['upper'] = classification_function_dataframe['y'] + criterion
         classification_function_dataframe['lower'] = classification_function_dataframe['y'] - criterion
@@ -86,7 +86,7 @@ def plot_classification(point, ideal_function):
 
         p.add_layout(band)
 
-        # draw the point
+        # Draws the point
         p.scatter([point["x"]], [round(point["y"], 4)], fill_color="red", legend_label="Test point", size=8)
 
         return p
