@@ -53,3 +53,5 @@ def write_deviation_results_to_sqlite(result):
         connection.commit()
 
     #i.execute(execute_map)
+    
+    
