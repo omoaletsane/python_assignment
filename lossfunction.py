@@ -1,15 +1,11 @@
-def calc_squared_error(target_function, comparison_function):
+def squared_error(first_function, second_function):
     """
-    Compute the square difference between two functions.
-    :param target_function: The first function to be compared
-	:param comparison_function: The second function for comparison
-	:return: Square difference
+    Calculates the squared error to another function
+    :param other_function:
+    :return: the squared error
     """
-    
-    deviations =comparison_function - target_function-1
-    
-    deviations["y"] = deviations["y"] ** 2
-    
-    total_deviation = sum(deviations["y"])
-    
- return total_deviation
+    distances = second_function - first_function
+    distances["y"] = distances["y"] ** 2
+    total_deviation = sum(distances["y"])
+    return total_deviation
+
